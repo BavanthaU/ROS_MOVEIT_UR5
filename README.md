@@ -16,3 +16,5 @@ rosrun robot_environment user_input.py
 ML Model output --> this is an active node keep predicting the hand locations in real time, so system is capable of handling chnages in the hand locations in real time
 
 ![image](https://user-images.githubusercontent.com/70237645/156980285-272726a6-e15e-4c05-a1d0-d6ca9d89c17e.png)
+
+Video Demonstration --> https://drive.google.com/file/d/1kz8WAXhYwJFwt2F26b8hXYol6kxLIFxD/view?usp=sharing
