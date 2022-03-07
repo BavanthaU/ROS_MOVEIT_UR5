@@ -1,0 +1,28 @@
+<launch>
+    <!-- <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="$(find robot_environment)/worlds/empty_world.world"/>
+    </include>
+
+    <param name="robot_description" command="rosrun xacro xacro $(find robot_environment)/urdf/workspace.urdf.xacro"/>
+
+    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model ur5_robot1"/> -->
+
+    <!-- specify the planning pipeline -->
+  <arg name="pipeline" default="ompl" />
+
+  <!-- Gazebo specific options -->
+  <arg name="gazebo_gui" default="true"/>
+  <arg name="paused" default="false"/>
+
+  <!-- launch the gazebo simulator and spawn the robot -->
+  <include file="$(find ur5_moveit_config)/launch/gazebo.launch" >
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="gazebo_gui" value="$(arg gazebo_gui)"/>
+  </include>
+
+  <include file="$(find ur5_moveit_config)/launch/demo.launch" pass_all_args="true">
+    <!-- robot description is loaded by gazebo.launch, to enable Gazebo features -->
+    <arg name="load_robot_description" value="false" />
+    <arg name="moveit_controller_manager" value="ros_control" />
+  </include>
+</launch>

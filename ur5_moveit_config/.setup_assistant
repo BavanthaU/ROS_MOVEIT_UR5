@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: robot_environment
+    relative_path: urdf/workspace.urdf.xacro
+    xacro_args: ""
+  SRDF:
+    relative_path: config/mmt_workspace.srdf
+  CONFIG:
+    author_name: Bavantha
+    author_email: bavanthau@eng.pdn.ac.lk
+    generated_timestamp: 1646370429

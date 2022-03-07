@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="mmt_workspace">
+
+    <!-- INCLUDE YOUR ROBOT HERE-->
+    <xacro:arg name="transmission_hw_interface" default="hardware_interface/EffortJointInterface"/>
+
+    <!-- common stuff -->
+    <xacro:include filename="$(find robot_environment)/urdf/common.gazebo.xacro" />
+
+    <!-- ur5 -->
+    <xacro:include filename="$(find robot_environment)/urdf/ur5.urdf.xacro" />
+
+    <!-- arm -->
+    <xacro:ur5_robot prefix="" joint_limited="true"
+      shoulder_pan_lower_limit="${-pi}" shoulder_pan_upper_limit="${pi}"
+      shoulder_lift_lower_limit="${-pi}" shoulder_lift_upper_limit="${pi}"
+      elbow_joint_lower_limit="${-pi}" elbow_joint_upper_limit="${pi}"
+      wrist_1_lower_limit="${-pi}" wrist_1_upper_limit="${pi}"
+      wrist_2_lower_limit="${-pi}" wrist_2_upper_limit="${pi}"
+      wrist_3_lower_limit="${-pi}" wrist_3_upper_limit="${pi}"
+      transmission_hw_interface="$(arg transmission_hw_interface)"
+    />
+    
+    <link name="world"/>
+
+    <link name='base_plate'>
+        <!-- The plate has dimensions of x:1.5m y:1.5m z:0.15m-->
+        <visual>
+            <geometry>
+              <mesh filename="package://robot_environment/model/base/base_vis.dae" scale = '-0.5 0.5 0.5'/>
+            </geometry>
+          </visual>
+          <collision>
+            <geometry>
+              <mesh filename="package://robot_environment/model/base/base_col.stl" scale = '0.5 0.5 0.5'/>
+            </geometry>
+          </collision>
+          <inertial>
+              <mass value = "1.0"/>
+              <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+              <inertia ixx="0.16667"  ixy="0.0" ixz="0.0"
+                       iyy="0.166667" iyz="0.0"
+                       izz="0.16667" />
+          </inertial>
+    </link>
+  
+    <joint name="world_joint" type="fixed">
+      <parent link="world"/>
+      <child link="base_plate"/>
+      <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+    </joint>
+
+    <joint name="arm_joint" type="fixed">
+      <parent link="base_plate"/>
+      <child link="base_link"/>
+      <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.15"/>
+    </joint>
+
+    <gazebo reference="base_plate">
+        <selfCollide>true</selfCollide>
+        <gravity>false</gravity>
+    </gazebo>
+
+</robot>
