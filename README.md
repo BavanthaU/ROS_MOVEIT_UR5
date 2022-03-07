@@ -1,5 +1,6 @@
 # ROS_MOVEIT_UR5
 How to test it out:
+
 step 1:
 roslaunch robot_environment launch_world.launch
 
